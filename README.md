@@ -10,7 +10,7 @@ The following describes the problem, constraints, and assumption made when model
 3. [Assumptions Made in Model Definition](#defining-the-model)
 4. [Discrete Event Simulation using SimPy](#discrete-event-simulation-using-simpy)
 5. [Simulation Outputs and Observations](#simulation-outputs-and-onbservations)
-6. [Recommended Actions and Next Steps](#recommended-actions-and-next-steps)
+6. [Recommended Actions and Next Steps](#next-steps-and-recommended-actions)
 
 # Problem Formulation and Study Design
 
@@ -28,7 +28,8 @@ Whenever a 1P customer wants to onboard to ATS' solutions they complete various 
 - **Server** - an ATS engineer that is responsible for completing one, many, or all of the customer-onboarding processes.
 - **Service** - the act of carrying out and completing a process, performed by a Server.
 - **Event** - an instantaneous or temporal occurrence that may change the system state.
-- **Resource** - are Servers. i.e., ATS Engineers, that ATS makes available to its customers they - **Process** - a simulation construct that encapsulates a customer using a resource that leads to a transition event.  
+- **Resource** - are Servers. i.e., ATS Engineers, that ATS makes available to its customers 
+- **Process** - a simulation construct that encapsulates a customer using a resource that leads to a transition event.  
 - **Arrival Rate ($\lambda$)** is the number of customers arriving per unit time -- a Poisson process at a rate of $\lambda = 1/E(A)$, where $A$ is the arrival time.
   - e.g., 3 customers per week.
 - **Service Rate ($\mu$)** is the number of customers that a single server can serve per unit time -- each customer requires an exponentially distributed service time period with an average service rate of $\mu = 1/E(S)$, where $S$ is the time it takes to complete a service.
