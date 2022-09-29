@@ -1,7 +1,7 @@
 MS-HACKATHON-2022
 =================
 
-***Understanding and Improving Customer Onboarding Experience Using Discrete Event Simulation***
+# **Understanding and Improving Customer Onboarding Experience Using Discrete Event Simulation**
 
 The following describes the problem, constraints, and assumption made when modeling ATS' onboarding process using discrete event simulations (DES) -- collectively called the **study**. This study is intended to simulate people operating in a simulated system, consisting of two sequential services within a queueing system. The study is meant to represent current conditions and not a future state or process. The study is broken into the following sections:
 
@@ -127,23 +127,28 @@ management, the simulation analysts, and subject-matter experts (SMEs). The foll
 
 ## Defining the Model
 
-<img style="text-aling:center; padding: 10px 20px;" src="images/onboarding.png" alt="Onboarding flow">
+<img style="text-aling:center; padding: 20px 20px;" src="images/onboarding.png" alt="Onboarding flow">
 
 As previously mentioned, the ATS onboarding flow can be broken down to two core components: (1) Getting to Know ATS, and (2) Tenant Onboarding. Getting to Know ATS is the subsystem by which a customer arrives at a Server that ensures the customer arrives at the necessary knowledge state to undergo tenant onboarding, while Tenant Onboarding is the subsystem by which ATS clusters are deployed on behalf of the customer. The description of the general modeling considerations, and subsystems' approaches used in this study follow.
 
 ### General Simulation Description
 
-The simulation beings in an "empty-and-idle state;" i.e., no customers are present and the server is idle. At time 0, we begin waiting for the arrival of the first customer, which occurs after the first interarrival time $A_1$, rather than at time 0. We wish to simulate this system until a fixed number ($n$) of customers have completed their delays in queue, and they have been served -- i.e., the simulation end when the $n$th customer enter Service.
+The simulation beings in an "empty-and-idle state;" i.e., no customers are present and the server is idle. At time 0, we begin waiting for the arrival of the first customer, which occurs after the first interarrival time $A_1$, rather than at time 0. We wish to simulate this system until a fixed number  $(n)$ of customers have completed their delays in queue, and they have been served -- i.e., the simulation end when the $n$ -th customer enter Service.
 
 To measure the performance of the system we will look at estimates of the following quantities:
 
-1. The **expected average delay in queue** of the $n$ customers completing their delays during the simulation -- denoted by $d(n)$. $d(n)$ is the average of a large, finite, number of $n$-customer delays. From a single run of the simulation resulting in customer delays $D_1, D_2, \dots, D_n$ we have an estimator of $$\hat{d}(n)=\frac{\sum_{i=1}^n D_i}{n}$$
-2. The **expected average number of customers in the queue** that are not being served -- denoted by $q(n)$. Then, given the number of customers in queue at time $t$ is $t\ge0$, $$\hat{q}(n)=\sum_{i=0}^{\infty} iP_i$$ is the weighted average of the possible values of $i$ for the queue length $Q(t)$. If we let $T_i$ be the total time during the simulation that the queue is of length $i$, then $T(n) = T_0+T_1+\cdots$ and $P_i=T_i/T(n)$ we have  $$\hat{q}(n)=\frac{\sum_{i=0}^{\infty} iT_i}{T(n)}$$,
+1. The **expected average delay in queue** of the $n$ customers completing their delays during the simulation -- denoted by $d(n)$. Where $d(n)$ is the average of a large, finite, number of $n$-customer delays. From a single run of the simulation resulting in customer delays $D_1, D_2, \dots, D_n$ we have an estimator of $$\hat{d}(n)=\frac{\sum_{i=1}^n D_i}{n}$$
+
+2. The **expected average number of customers in the queue** that are not being served -- denoted by $q(n)$. Then, given the number of customers in queue at time $t$ is $t\ge0$, $$\hat{q}(n)=\sum_{i=0}^{\infty} iP_i$$ 
+is the weighted average of the possible values of $i$ for the queue length $Q(t)$. If we let $T_i$ be the total time during the simulation that the queue is of length $i$, then $T(n) = T_0+T_1+\cdots$ and $P_i=T_i/T(n)$ we have  $$\hat{q}(n)=\frac{\sum_{i=0}^{\infty} iT_i}{T(n)}$$
+
 3. The **expected utilization of the server** is the expected proportion of time during the simulation (from time 0 to time $T(n)$) that the server is busy serving a customer -- denoted by $u(n)$. From a single simulation we have for a 'busy function' $B(t)$ where $B(t)=1$ if the server is busy at time $t$ and $B(t)=0$ if server is idle at time $t$ we $$\hat{u}(n) =\frac{\int_0^{T(n)}B(t) ~dt}{T(n)}$$
+
+<br />
 
 ### Modeling Getting to Know ATS System Using GI/G/s Queue
 
-<img style="text-aling:center; padding: 10px 20px;" src="images/GIGs.png" alt="Gi/G/s Model">
+<img style="text-aling:center; padding: 20px 20px;" src="images/GIGs.png" alt="Gi/G/s Model">
 
 #### Problem Statement
 
@@ -180,10 +185,11 @@ Following is a breakdown of the steps a customer might take as part of completin
 | Exchanges of information | 2 | There may be multiple exchanges that affect the system's state.<br> For simplicity, we only consider a single transition from 'not having enough knowledge' to 'having sufficient knowledge' to onboard to ATS. |
 | End of sup-system simulation | 3 | This is achieved when an ADO ticket is submitted. |
 
+<br />
 
 ### Modeling Tenant Onboarding Using M/M/c Queue
 
-<img style="text-aling:center; padding: 10px 20px; width:100%" src="images/MMc.png" alt="M/M/c Model">
+<img style="text-aling:center; padding: 20px 20px; width:100%" src="images/MMc.png" alt="M/M/c Model">
 
 #### Problem Statement
 
@@ -215,6 +221,8 @@ Following is a breakdown of the steps a customer might take as part of completin
 | Arrival of a customer to the 'Tenant Onboarding' | 1 | -- |
 | Tenant Onboarding | 2 | Because SDP introduces the majority of the delay in to the subsystem, for simplicity, the delay contribution of any other sup-process to the tenant onboarding process is assumed to be captured in the variance for the tenant onboarding process. Thus the contribution in delay by other sub-processes is negligible. |
 | End of sup-system simulation | 3 | This is achieved when customer is notified of the completion of their tenant onboarding. |
+
+<br />
 
 ### General Simulation Assumptions 
 
